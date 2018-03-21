@@ -1,0 +1,53 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Abhay Poddar">
+    <link rel="icon" href="{% static 'hostelmanagement/sit-logo.png' %}">
+    <title>{{ pageContext }}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+    <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+  </head>
+  <body>
+    <!-- body suppressed for brevity ... -->
+    <div class="container align-items-center col-md-6">
+      <form class="form-control" action="." method="post" id="djangoform">
+        <img class="mb-4 centered" src="{% static 'hostelmanagement/sit-logo.png' %}" alt="" width="72" height="72">
+        <h3 class="form-signin-heading">{{ pageContext }}</h3>
+        {%csrf_token%}
+        {% for error in form.non_field_errors %}
+        <div class="form-group has-errors text-danger small">
+          {{error}}
+        </div>
+        {% endfor %}
+        {% for field in form %}
+        <div class="form-group">
+          {{field}}
+          {%if field.errors %}
+          <div class="alert alert-danger">
+            <strong> {{field.errors| striptags}}</strong>
+          </div>
+          {%endif%}
+          <p class="help">{{ field.help_text }}</p>
+        </div>
+
+        {% endfor %}
+        <button class="btn btn-primary" style="width:100%">{{ buttonText }}</button>
+      </form>
+    </div>
+    <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+    <!--<script type="text/javascript">
+      function submitandclear()
+      {
+        var form=document.getElementById("djangoform");
+        form.submit();
+        form.reset();
+        return false;
+      }
+    </script>-->
+  </body>
+</html>

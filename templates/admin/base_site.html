@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | Siddaganga Institute of Technology{% endblock %}
+
+{% block branding %}
+<div>{% load static %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}"><img src="{% static "hostelmanagement/sit-logo.png" %}" alt="sit-logo" width="5%" height="5%"/> Hostel Management Admin</a></h1></div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

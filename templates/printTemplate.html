@@ -1,0 +1,57 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Abhay Poddar">
+    <link rel="icon" href="{% static 'hostelmanagement/sit-logo.png' %}">
+    <title>{{ pageContext }}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+    <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+  </head>
+  <body>
+    <!-- body suppressed for brevity ... -->
+    <div class="col-md-12">
+      <div class="container">
+        <a href="/studentLogin/"><img class="mb-4 centered" src="{% static 'hostelmanagement/sit-logo.png' %}" alt="" width="72" height="72">Siddaganga Institute of Technology</a>
+        <h3 class="form-signin-heading">{{ pageContext }}</h3>
+      </div>
+      <div class="container col-md-12">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Student Name</th>
+              <th scope="col">Student USN</th>
+              <th scope="col">Student Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ student.fname }} {{ student.lname }}</td>
+              <td>{{ student.usn }}</td>
+              <td>{{ student.gender }}</td>
+            </tr>
+          </tbody>
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Hostel Name</th>
+              <th scope="col">Room Number</th>
+              <th scope="col">Bill Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ student.hostel }}</td>
+              <td>{{ student.room }}</td>
+              <td>{{ student.bill }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+  </body>
+</html>
