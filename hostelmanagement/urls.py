@@ -20,7 +20,7 @@ from boards import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^studentLogin/', views.studentLogin, name='studentLogin'),
-    url(r'^billNotPaid/', views.billNotPaid, name='billNotPaid'),
+    url(r'^payBill/', views.payBill, name='payBill'),
     url(r'^registerStudent/', views.registerStudent, name='registerStudent'),
     url(r'^bookHostel/', views.bookHostel, name='bookHostel'),
     url(r'^createHostel/', views.createHostel, name='createHostel'),

@@ -1,5 +1,6 @@
 from django.db.models.signals import pre_delete
 from boards.models import Student
+from django.contrib.auth.models import User
 from django.dispatch import receiver
 
 @receiver(pre_delete, sender=Student)

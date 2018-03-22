@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Hostels(models.Model):
@@ -49,6 +50,7 @@ class Hostel(models.Model):
         return 'Room '+str(self.roomn)
 
 class Student(models.Model):
+    user = models.OneToOneField(User, related_name='holder', on_delete=models.CASCADE,null=True)
     usn=models.CharField(max_length=10, unique=True,primary_key=True)
     lname=models.CharField(max_length=30);
     fname=models.CharField(max_length=30);
@@ -71,7 +73,5 @@ class Student(models.Model):
     room=models.ForeignKey(Hostel, related_name='books', on_delete=models.CASCADE, null=True)
     billcategory=models.PositiveIntegerField(choices=bill_choices)
     hostel=models.ForeignKey(Hostels, related_name='billfor',on_delete=models.CASCADE, null=False)
-    #prefRoommate1=models.ForeignKey('self', related_name='prefRoommate', null=True, on_delete=modls.SET_NULL)
-    #prefRoommate2=models.ForeignKey('self', related_name='prefRoommate', null=True, on_delete=models.SET_NULL)
     def __str__(self):
         return self.usn

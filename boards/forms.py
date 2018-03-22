@@ -1,25 +1,16 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core import validators
-import re
+from django.contrib.auth.models import User
 from .models import Hostel,Hostels,Student
 from django.forms import ModelForm
 from django.db.models import Max, IntegerField
+from django.contrib.auth.forms import UserCreationForm
 
 class StudentLoginForm(forms.Form):
     usn= forms.CharField(label='USN', max_length=10, validators=[validators.RegexValidator('1[s|S][i|I][0-9][0-9][a-z|A-Z][a-z|A-Z][0-9][0-9][0-9]')], widget=forms.TextInput(attrs={'class':'form-control form-control-danger','placeholder':'USN'}))
-    bill=forms.IntegerField(label='Bill Number', widget=forms.TextInput(attrs={'class':'form-control form-control-danger','placeholder':'Bill Number'}))
-    def clean_usn(self):
-        usn=self.cleaned_data['usn']
-        if Student.objects.filter(usn=usn).count()==0:
-            raise ValidationError("Incorrect USN Number")
-        return usn
-    def clean_bill(self):
-        bill=self.cleaned_data['bill']
-        if Student.objects.filter(bill=bill).count()==0:
-            raise ValidationError("Incorrect Bill Number")
-        return bill
-
+    password=forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control form-control-danger','placeholder':'Password'}))
+        
 
 class studentForm(ModelForm):
     class Meta:
@@ -44,7 +35,6 @@ class studentForm(ModelForm):
             pri=1
         self.priority=pri
 
-
 class createHostelForm(ModelForm):
     class Meta:
         model=Hostels
@@ -67,3 +57,21 @@ class chooseRoomForm(forms.Form):
     room=forms.ModelChoiceField(label='Room Number', widget=forms.Select(attrs={'class':'form-control'}),queryset=Hostel.objects.all())
     def roomBlock(self,hostel,billcategory):
         self.fields['room'].queryset = hostel.hosteldetails.filter(size=billcategory,status=3)
+
+class studentSignUp(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username','password1', 'password2', )
+        validators={
+            'username':validators.RegexValidator('1[s|S][i|I][0-9][0-9][a-z|A-Z][a-z|A-Z][0-9][0-9][0-9]'),
+        }
+        widgets={
+            'username':forms.TextInput(attrs={'class':'form-control form-control-danger','placeholder':'USN'}),
+            'password1':forms.PasswordInput(attrs={'class':'form-control form-control-danger','placeholder':'Password'}),
+            'password2':forms.PasswordInput(attrs={'class':'form-control form-control-danger','placeholder':'Enter your Password Again'}),
+        }
+    def clean_username(self):
+        username=self.cleaned_data['username']
+        if Student.objects.filter(usn=username).count()==0:
+            raise ValidationError("Bill Not Paid")
+        return username

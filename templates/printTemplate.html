@@ -50,8 +50,19 @@
             </tr>
           </tbody>
         </table>
+        <a href="/payBill/">Pay Bill</a>
+        <a href="/studentLogin/">Student Login</a>
+        <a href="/registerStudent/">Register Student</a>
       </div>
     </div>
+    <input type="hidden" id="refreshed" value="no">
+    <script type="text/javascript">
+      onload=function(){
+      var e=document.getElementById("refreshed");
+      if(e.value=="no")e.value="yes";
+      else{e.value="no";location.reload();}
+      }
+    </script>
     <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
   </body>
 </html>
